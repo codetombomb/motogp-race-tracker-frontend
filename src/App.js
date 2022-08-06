@@ -1,23 +1,18 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import RiderCardContainer from './Components/RiderCardContainer';
 
 function App() {
+  const [riders, setRiders] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:9292/riders")
+      .then(resp => resp.json())
+      .then(data => setRiders([...data]))
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RiderCardContainer riders={riders} />
     </div>
   );
 }
